@@ -12,7 +12,6 @@ function App() {
             axios.get(
                 "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=I0R8K64CG3EHARV6"
             ),
-
             axios.get(
                 "https://www.alphavantage.co/query?function=OVERVIEW&symbol=MSFT&apikey=I0R8K64CG3EHARV6"
             ),
@@ -32,16 +31,8 @@ function App() {
             });
     }, []);
 
-    const handleChange = e => {
-        const a = data.filter(company => company.Name.includes(e.target.value));
-        console.log(a);
-    };
-
-    console.log(data);
-
     return (
         <div className="mainContainer">
-            <input type="text" onChange={handleChange}></input>
             <DataTable columns={columns} data={data} />
         </div>
     );
