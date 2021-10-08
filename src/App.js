@@ -32,8 +32,16 @@ function App() {
             });
     }, []);
 
+    const handleChange = e => {
+        const a = data.filter(company => company.Name.includes(e.target.value));
+        console.log(a);
+    };
+
+    console.log(data);
+
     return (
         <div className="mainContainer">
+            <input type="text" onChange={handleChange}></input>
             <DataTable columns={columns} data={data} />
         </div>
     );
