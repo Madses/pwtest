@@ -5,7 +5,18 @@ body {
     font-smooth: always;
 }
 
-.mainContainer {
+.main-container {
     width: 80%;
     margin: 0 auto;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    > div {
+        display: flex;
+        gap: 20px;
+    }
 }
