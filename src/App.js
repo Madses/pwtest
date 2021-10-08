@@ -8,16 +8,28 @@ function App() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
+        const requestOne = axios.get(
+            "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=I0R8K64CG3EHARV6"
+        );
+        const requestTwo = axios.get(
+            "https://www.alphavantage.co/query?function=OVERVIEW&symbol=MSFT&apikey=I0R8K64CG3EHARV6"
+        );
+
+        const requestThree = axios.get(
+            "https://www.alphavantage.co/query?function=OVERVIEW&symbol=AAPL&apikey=I0R8K64CG3EHARV6"
+        );
+
         axios
-            .get(
-                "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=I0R8K64CG3EHARV6"
+            .all([requestOne, requestTwo, requestThree])
+            .then(responses =>
+                setData(responses.map(response => response.data))
             )
-            .then(res => {
-                setData([res.data]);
-            })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+            });
     }, []);
 
+    console.log(data);
     return (
         <div className="mainContainer">
             <DataTable columns={columns} data={data} />
