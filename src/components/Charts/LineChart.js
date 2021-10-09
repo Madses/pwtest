@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import Highcharts from "highcharts";
-import moment from "moment";
 
 export default function LineChart({ companies, param, data }) {
+    /**
+     * Create chart data for this specific chart
+     * @param   {Object} data
+     * @param   {string} company
+     * @param   {string} param
+     * @returns {Array}
+     */
     const makeData = (data, company, param) => {
         return Object.entries(
             data[company.value][0]["Time Series (Daily)"]
-        ).map(entry => {
-            console.log(entry[1][param.value]);
-            return [moment(entry[0]).unix(), parseInt(entry[1][param.value])];
-        });
+        ).map(entry => [
+            Date.parse(entry[0]),
+            parseFloat(entry[1][param.value]),
+        ]);
     };
 
     useEffect(() => {
@@ -22,14 +28,19 @@ export default function LineChart({ companies, param, data }) {
                 text: "Daily prices",
             },
 
-            xAxis: { type: "datetime" },
+            xAxis: {
+                type: "datetime",
+                labels: {
+                    format: "{value:%Y-%m-%d}",
+                },
+            },
 
             series: companies.map(company => {
                 return {
                     name: company.label,
                     data: makeData(data, company, param),
                     tooltip: {
-                        valueDecimals: 2,
+                        valueDecimals: 3,
                     },
                 };
             }),
