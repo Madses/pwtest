@@ -2,6 +2,7 @@ import { useTable } from "react-table";
 import "./style.scss";
 
 export default function DataTable({ columns, data }) {
+    
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
         useTable({ columns, data });
 
